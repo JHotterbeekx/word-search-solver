@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = function(letterMatrix, wordList) {
+  const result = [];
   for(var i = 0; i < wordList.length; i++) {
-    const location = FindWordInMatrix(wordList[i], letterMatrix, width);
+    const location = FindWordInMatrix(wordList[i], letterMatrix, letterMatrix.length);
     const wordResult = {
-      word: wordList,
+      word: wordList[i],
       found: false
     }
     if( location[0] !== [0, 0] || location !== [0, 0] ) {
@@ -22,6 +23,8 @@ function FindWordInMatrix(word, matrix, width) {
   const startLetter = word[0];
   const wl = word.length -1;
   // console.log('Searching word', word);
+  // console.log('Searching width', width);
+  // console.log('Searching matrix', matrix);
   // console.log('startLetter', startLetter);
 
   for(var x = 0; x < matrix.length; x++) {
@@ -36,7 +39,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'l':
               if (x - wl >= 0) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y][x -c] !== word[c]) {
                     match = false;
                   }
@@ -49,7 +52,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'lu':
              if (x - wl >= 0 && y - wl >= 0) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y - c][x - c] !== word[c]) {
                     match = false;
                   }
@@ -62,7 +65,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'u':
               if (y - wl >= 0) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y - c][x] !== word[c]) {
                     match = false;
                   }
@@ -75,7 +78,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'ru':
               if (x + wl < width && y - wl >= 0) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y - c][x + c] !== word[c]) {
                     match = false;
                   }
@@ -88,7 +91,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'r':
               if (x + wl < width) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y][x + c] !== word[c]) {
                     match = false;
                   }
@@ -101,7 +104,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'rd':
               if (x + wl < width && y + wl < width) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x + c] !== word[c]) {
                     match = false;
                   }
@@ -114,7 +117,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'd':
               if (y + wl < width) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x] !== word[c]) {
                     match = false;
                   }
@@ -127,7 +130,7 @@ function FindWordInMatrix(word, matrix, width) {
             case 'ld':
             if (x - wl >= 0 && y + wl < width) {
                 let match = true;
-                for(c = 1; c <= wl; c++) {
+                for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x - c] !== word[c]) {
                     match = false;
                   }

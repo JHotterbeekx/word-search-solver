@@ -4,7 +4,7 @@
   "description": "Utility to solve word search puzzles",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha test/test.js --reporter json"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/JHotterbeekx/word-search-solver#readme",
   "devDependencies": {
+    "chai": "^4.1.0",
     "mocha": "^3.4.2"
   }
 }
