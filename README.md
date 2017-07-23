@@ -10,6 +10,7 @@ Allows you to solve word search puzzles by feeding it a matrix with the letters 
 
 ## Usage
 
+```js
   const wordSearchSolver = require('word-search-solver');
   const matrix = [
     [ 'c', 'i', 'o', t' ], 
@@ -24,37 +25,41 @@ Allows you to solve word search puzzles by feeding it a matrix with the letters 
   ];
 
   const solution = wordSearchSolver(matrix, wordsToFind);
-
+```
 
   The output will be:
 
-  [
-    {
-      word: 'bat',
-      found: true,
-      firstLetter: [2, 1]
-      lastLetter: [0, 3]
-    },
-    {
-      word: 'cow',
-      found: true,
-      firstLetter: [0, 0]
-      lastLetter: [2, 2]
-    },
-    {
-      word: 'max',
-      found: true,
-      firstLetter: [3, 3]
-      lastLetter: [3, 1]
-    },
-  ]
+```js
+[
+  {
+    word: 'bat',
+    found: true,
+    firstLetter: [2, 1]
+    lastLetter: [0, 3]
+  },
+  {
+    word: 'cow',
+    found: true,
+    firstLetter: [0, 0]
+    lastLetter: [2, 2]
+  },
+  {
+    word: 'max',
+    found: true,
+    firstLetter: [3, 3]
+    lastLetter: [3, 1]
+  },
+]
+```
 
   When one of the words is not found, it is returned like this:
 
+```js
   {
     word: 'love',
     found: false
   }
+```
 
 
 ## Tests
