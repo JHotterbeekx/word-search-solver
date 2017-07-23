@@ -219,6 +219,35 @@ describe('Test matrix', function() {
     expect(solverResult[0].firstLetter).to.equal(undefined);
     expect(solverResult[0].lastLetter).to.equal(undefined);
   });
+  it('Should solve a puzzle, when height is more then width', function() {
+    const matrix = [
+        'rfcd',
+        'glij',
+        'mowp',
+        'swuo',
+        'yeab',
+        'ergh',
+      ];
+      assertMatrix(matrix, ['flower'], [{ start: [0, 1], end: [5, 1] }]);
+  });
+  it('Should solve a puzzle, when width is more then height', function() {
+    const matrix = [
+        'mnopqr',
+        'stuvwx',
+        'flower',
+        'efghij',
+      ];
+      assertMatrix(matrix, ['flower'], [{ start: [2, 0], end: [2, 5] }]);
+  });
+  it('Should solve a puzzle, when width is variable', function() {
+    const matrix = [
+        'ads',
+        'weqw',
+        'flowers',
+        'as',
+      ];
+      assertMatrix(matrix, ['flower'], [{ start: [2, 0], end: [2, 5] }]);
+  });
   it('Should solve this real 11x11 puzzle', function() {
     const matrix = [
       'lecliffbvic',

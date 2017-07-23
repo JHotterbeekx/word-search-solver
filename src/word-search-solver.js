@@ -3,7 +3,7 @@
 module.exports = function(letterMatrix, wordList) {
   const result = [];
   for(var i = 0; i < wordList.length; i++) {
-    const location = FindWordInMatrix(wordList[i], letterMatrix, letterMatrix.length);
+    const location = FindWordInMatrix(wordList[i], letterMatrix);
     const wordResult = {
       word: wordList[i],
       found: false
@@ -19,10 +19,11 @@ module.exports = function(letterMatrix, wordList) {
   return result;
 };
 
-function FindWordInMatrix(word, matrix, width) {
+function FindWordInMatrix(word, matrix) {
   // Start by looking for the starting letter
   const startLetter = word[0];
   const wl = word.length -1;
+  const height = matrix.length;
   // console.log('Searching word', word);
   // console.log('Searching width', width);
   // console.log('Searching matrix', matrix);
@@ -31,6 +32,7 @@ function FindWordInMatrix(word, matrix, width) {
   for(var x = 0; x < matrix.length; x++) {
     for(var y = 0; y < matrix.length; y++) {
       if(matrix[y][x] === startLetter) {
+        const width = matrix[y].length;
         // console.log(`Found on [${y},${x}]`);
         const possibleDirections = ['l','lu','u','ru','r','rd','d','ld'];
         // exclude possible directions
@@ -103,7 +105,7 @@ function FindWordInMatrix(word, matrix, width) {
               }
               break;
             case 'rd':
-              if (x + wl < width && y + wl < width) {
+              if (x + wl < width && y + wl < height) {
                 let match = true;
                 for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x + c] !== word[c]) {
@@ -116,7 +118,7 @@ function FindWordInMatrix(word, matrix, width) {
               }
               break;
             case 'd':
-              if (y + wl < width) {
+              if (y + wl < height) {
                 let match = true;
                 for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x] !== word[c]) {
@@ -129,7 +131,7 @@ function FindWordInMatrix(word, matrix, width) {
               }
               break;
             case 'ld':
-            if (x - wl >= 0 && y + wl < width) {
+            if (x - wl >= 0 && y + wl < height) {
                 let match = true;
                 for(let c = 1; c <= wl; c++) {
                   if(matrix[y + c][x - c] !== word[c]) {
