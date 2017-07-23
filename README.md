@@ -1,12 +1,9 @@
 ## word-search-solver
 NodeJS module to solver word search puzzles
 
+Allows you to solve word search puzzles by feeding it a matrix with the letters and the words to find
 
 [![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
-
-=========
-
-Allows you to solve word search puzzles by feeding it a matrix with the letters and the words to find
 
 ## Installation
 
