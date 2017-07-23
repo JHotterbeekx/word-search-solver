@@ -1,7 +1,8 @@
 ## word-search-solver
 NodeJS module to solver word search puzzles
 
-(https://travis-ci.org/JHotterbeekx/word-search-solver.svg?branch=master)
+
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image][travis-url][![Coverage Status][coveralls-image]][coveralls-url]
 
 =========
 
@@ -83,3 +84,6 @@ word-search-solver is freely distributable under the terms of the [MIT license](
 
 [travis-url]: https://travis-ci.org/JHotterbeekx/word-search-solver
 [travis-image]: http://img.shields.io/travis/moment/moment/develop.svg?style=flat
+
+[coveralls-url]: https://coveralls.io/github/JHotterbeekx/word-search-solver
+[coveralls-image]: https://coveralls.io/repos/github/JHotterbeekx/word-search-solver/badge.svg?branch=master
