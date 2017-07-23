@@ -1,6 +1,6 @@
 {
   "name": "word-search-solver",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utility to solve word search puzzles",
   "main": "index.js",
   "scripts": {
