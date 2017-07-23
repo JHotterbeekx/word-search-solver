@@ -1,5 +1,8 @@
-# word-search-solver
+## word-search-solver
 NodeJS module to solver word search puzzles
+
+(https://travis-ci.org/JHotterbeekx/word-search-solver.svg?branch=master)
+
 =========
 
 Allows you to solve word search puzzles by feeding it a matrix with the letters and the words to find
