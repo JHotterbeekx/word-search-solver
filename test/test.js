@@ -203,6 +203,22 @@ describe('Test matrix', function() {
       assertMatrix(matrix, ['flower'], [{ start: [5, 5], end: [0, 0] }]);
     });
   });
+  it('Should return found false, when word does not exist in puzzle', function() {
+    const matrix = [
+      'abcdef',
+      'ghijkl',
+      'mnopqr',
+      'stuvwx',
+      'yzabcd',
+      'efghij',
+    ];
+    const solverResult = wordSearchSolver(matrix, ['stars']);
+    expect(solverResult.length).to.equal(1);
+    expect(solverResult[0].word).to.equal('stars');
+    expect(solverResult[0].found).to.equal(false);
+    expect(solverResult[0].firstLetter).to.equal(undefined);
+    expect(solverResult[0].lastLetter).to.equal(undefined);
+  });
   it('Should solve this real 11x11 puzzle', function() {
     const matrix = [
       'lecliffbvic',

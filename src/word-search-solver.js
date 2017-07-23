@@ -8,7 +8,8 @@ module.exports = function(letterMatrix, wordList) {
       word: wordList[i],
       found: false
     }
-    if( location[0] !== [0, 0] || location !== [0, 0] ) {
+
+    if( location[0][0] + location[0][1] + location[1][0] + location[1][1] > 0 ) {
       wordResult.found = true;
       wordResult.firstLetter = location[0];
       wordResult.lastLetter = location[1];
