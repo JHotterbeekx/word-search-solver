@@ -1,10 +1,10 @@
 {
   "name": "word-search-solver",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Utility to solve word search puzzles",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test.js --reporter json"
+    "test": "mocha test/test.js"
   },
   "repository": {
     "type": "git",
