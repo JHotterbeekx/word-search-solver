@@ -13,10 +13,10 @@ Allows you to solve word search puzzles by feeding it a matrix with the letters 
 ```js
   const wordSearchSolver = require('word-search-solver');
   const matrix = [
-    [ 'c', 'i', 'o', t' ], 
-    [ 'a', 'o', 'a', h' ], 
-    [ 'u', 'b', 'w', z' ], 
-    [ 'q', 'x', 'a', m' ], 
+    [ 'c', 'i', 'o', 't' ], 
+    [ 'a', 'o', 'a', 'h' ], 
+    [ 'u', 'b', 'w', 'z' ], 
+    [ 'q', 'x', 'a', 'm' ], 
   ];
   const wordsToFind = [
     'bat',
