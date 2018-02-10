@@ -1,4 +1,6 @@
 ## word-search-solver
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/JHotterbeekx/word-search-solver.svg)](https://greenkeeper.io/)
 NodeJS module to solver word search puzzles
 
 Allows you to solve word search puzzles by feeding it a matrix with the letters and the words to find
