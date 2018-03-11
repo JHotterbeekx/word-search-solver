@@ -4,6 +4,7 @@
   "description": "Utility to solve word search puzzles",
   "main": "index.js",
   "scripts": {
+    "build": "buble src/word-search-solver.js -o dist/word-search-solver.js",
     "test": "mocha test/test.js",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/JHotterbeekx/word-search-solver#readme",
   "devDependencies": {
+    "buble": "^0.19.3",
     "chai": "^4.1.0",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
