@@ -29,10 +29,10 @@ function FindWordInMatrix(word, matrix) {
   // console.log('Searching matrix', matrix);
   // console.log('startLetter', startLetter);
 
-  for(var x = 0; x < matrix.length; x++) {
-    for(var y = 0; y < matrix.length; y++) {
+  for(var y = 0; y < height; y++) {
+    const width = matrix[y].length;
+    for(var x = 0; x < width; x++) {
       if(matrix[y][x] === startLetter) {
-        const width = matrix[y].length;
         // console.log(`Found on [${y},${x}]`);
         const possibleDirections = ['l','lu','u','ru','r','rd','d','ld'];
         // exclude possible directions

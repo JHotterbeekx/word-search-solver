@@ -233,11 +233,17 @@ describe('Test matrix', function() {
   it('Should solve a puzzle, when width is more then height', function() {
     const matrix = [
         'mnopqr',
-        'stuvwx',
+        'srewop',
         'flower',
         'efghij',
       ];
-      assertMatrix(matrix, ['flower'], [{ start: [2, 0], end: [2, 5] }]);
+      assertMatrix(
+        matrix,
+        ['flower', 'power'],
+        [
+          { start: [2, 0], end: [2, 5] },
+          { start: [1, 5], end: [1, 1] }
+        ]);
   });
   it('Should solve a puzzle, when width is variable', function() {
     const matrix = [
