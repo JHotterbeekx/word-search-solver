@@ -1,1 +1,1 @@
-module.exports = require('./src/word-search-solver.js');
+module.exports = require('./dist/word-search-solver.js');
