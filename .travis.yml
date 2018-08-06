@@ -10,7 +10,7 @@ script:
   - npm run cover
 
 before_install:
-  - yarn global add greenkeeper-lockfile@1
+  - yarn global add greenkeeper-lockfile
 
 before_script:
   - greenkeeper-lockfile-update
