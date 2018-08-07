@@ -59,7 +59,7 @@ function findInIndexedMatrix(word, indexedMatrix) {
         for(let directionIndex = 0; directionIndex < directions.length; directionIndex ++) {
           const direction = directions[directionIndex];
 
-          let pointingItem = {... item.Directions[direction]};
+          let pointingItem = Object.assign({}, item.Directions[direction]);
           let lettersFound = 1;
           let matching = true;
 
