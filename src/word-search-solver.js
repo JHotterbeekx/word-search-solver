@@ -2,8 +2,10 @@
 
 module.exports = function(letterMatrix, wordList) {
   const result = [];
+  const indexedMatrix = BuildMap(letterMatrix);
+
   for(var i = 0; i < wordList.length; i++) {
-    const location = FindWordInMatrix(wordList[i], letterMatrix);
+    const location = findInIndexedMatrix(wordList[i], indexedMatrix);
     const wordResult = {
       word: wordList[i],
       found: false
@@ -19,135 +21,71 @@ module.exports = function(letterMatrix, wordList) {
   return result;
 };
 
-function FindWordInMatrix(word, matrix) {
-  // Start by looking for the starting letter
-  const startLetter = word[0];
-  const wl = word.length -1;
-  const height = matrix.length;
-  // console.log('Searching word', word);
-  // console.log('Searching width', width);
-  // console.log('Searching matrix', matrix);
-  // console.log('startLetter', startLetter);
+function BuildMap(matrix) {
+  var indexedMatrix = matrix.map((row, rowIndex) => row.split('').map((col, colIndex) => ({
+    RowIndex: rowIndex,
+    ColumnIndex: colIndex,
+    Character: col.toLowerCase(),
+    Directions: {}
+  })));
+  
+  indexedMatrix.forEach((row, rowIndex) => {
+    row.forEach((item, colIndex) => {
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex, colIndex -1, 'Right', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex, colIndex +1, 'Left', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex -1, colIndex, 'Down', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex +1, colIndex, 'Up', item);
+    
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex +1, colIndex +1, 'LeftUp', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex -1, colIndex +1, 'LeftDown', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex +1, colIndex -1, 'RightUp', item);
+      SetPropertyIfMatrixItemIfAvailable(indexedMatrix, rowIndex -1, colIndex -1, 'RightDown', item);
+    })
+  });
+  
+  return indexedMatrix;
+}
 
-  for(var y = 0; y < height; y++) {
-    const width = matrix[y].length;
-    for(var x = 0; x < width; x++) {
-      if(matrix[y][x] === startLetter) {
-        // console.log(`Found on [${y},${x}]`);
-        const possibleDirections = ['l','lu','u','ru','r','rd','d','ld'];
-        // exclude possible directions
-        for(var d = 0; d < possibleDirections.length; d++) {
-          const direction = possibleDirections[d];
-          switch(direction) {
-            case 'l':
-              if (x - wl >= 0) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y][x -c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y, x - wl]];
-              } else {
-                // console.log('Does not fit to left');
-              }
-              break;
-            case 'lu':
-             if (x - wl >= 0 && y - wl >= 0) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y - c][x - c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y - wl, x - wl]];
-              } else {
-                // console.log('Does not fit to left up');
-              }
-              break;
-            case 'u':
-              if (y - wl >= 0) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y - c][x] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y - wl, x]];
-              } else {
-                // console.log('Does not fit to up');
-              }
-              break;
-            case 'ru':
-              if (x + wl < width && y - wl >= 0) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y - c][x + c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y - wl, x + wl]];
-              } else {
-                // console.log('Does not fit to right up');
-              }
-              break;
-            case 'r':
-              if (x + wl < width) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y][x + c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y, x + wl]];
-              } else {
-                // console.log('Does not fit to right');
-              }
-              break;
-            case 'rd':
-              if (x + wl < width && y + wl < height) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y + c][x + c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y + wl, x + wl]];
-              } else {
-                // console.log('Does not fit to right down');
-              }
-              break;
-            case 'd':
-              if (y + wl < height) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y + c][x] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y + wl, x]];
-              } else {
-                // console.log('Does not fit to down');
-              }
-              break;
-            case 'ld':
-            if (x - wl >= 0 && y + wl < height) {
-                let match = true;
-                for(let c = 1; c <= wl; c++) {
-                  if(matrix[y + c][x - c] !== word[c]) {
-                    match = false;
-                  }
-                }
-                if(match) return [[y,x], [y + wl, x - wl]];
-              } else {
-                // console.log('Does not fit to left down');
-              }
-              break;
+function findInIndexedMatrix(word, indexedMatrix) {
+  const wordArray = word.toLowerCase().trim().split('');
+
+  for(let rowIndex = 0; rowIndex < indexedMatrix.length; rowIndex++) {
+    for(let colIndex = 0; colIndex < indexedMatrix[rowIndex].length; colIndex++) {
+      
+      const item = indexedMatrix[rowIndex][colIndex];
+      if (item.Character ===  wordArray[0]){
+        const directions = Object.keys(item.Directions);
+
+        for(let directionIndex = 0; directionIndex < directions.length; directionIndex ++) {
+          const direction = directions[directionIndex];
+
+          let pointingItem = {... item.Directions[direction]};
+          let lettersFound = 1;
+          let matching = true;
+
+          while(matching && lettersFound < wordArray.length && pointingItem !== undefined) {
+            if (pointingItem.Character !== wordArray[lettersFound]) {
+              matching = false;
+            } else {
+              lettersFound++;
+              
+            }
+            if (lettersFound < wordArray.length) pointingItem = pointingItem.Directions[direction];
+          }
+
+          if (matching && lettersFound === wordArray.length) {
+            return [[item.RowIndex, item.ColumnIndex], [pointingItem.RowIndex, pointingItem.ColumnIndex]]
           }
         }
       }
     }
   }
 
-  return [[0, 0], [0, 0]];
+  return [[0,0],[0,0]];
+}
+
+function SetPropertyIfMatrixItemIfAvailable(indexedMatrix, row, col, prop, value) {
+  if (indexedMatrix[row] !== undefined && indexedMatrix[row][col] !== undefined) {
+    indexedMatrix[row][col].Directions[prop] = value;
+  }
 }
