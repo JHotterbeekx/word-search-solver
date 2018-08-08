@@ -22,12 +22,11 @@ module.exports = function(letterMatrix, wordList) {
 };
 
 function BuildMap(matrix) {
-  var indexedMatrix = matrix.map((row, rowIndex) => row.split('').map((col, colIndex) => ({
-    RowIndex: rowIndex,
-    ColumnIndex: colIndex,
-    Character: col.toLowerCase(),
-    Directions: {}
-  })));
+  var indexedMatrix = matrix.map((row, rowIndex) => 
+    row.split('').map((col, colIndex) => 
+      new Character(col).atRow(rowIndex).atColumn(colIndex)
+    )
+  );
   
   indexedMatrix.forEach((row, rowIndex) => {
     row.forEach((item, colIndex) => {
@@ -54,12 +53,12 @@ function findInIndexedMatrix(word, indexedMatrix) {
       
       const item = indexedMatrix[rowIndex][colIndex];
       if (item.Character ===  wordArray[0]){
-        const directions = Object.keys(item.Directions);
+        const directions = Object.keys(item.Neighbors);
 
         for(let directionIndex = 0; directionIndex < directions.length; directionIndex ++) {
           const direction = directions[directionIndex];
 
-          let pointingItem = Object.assign({}, item.Directions[direction]);
+          let pointingItem = Object.assign({}, item.Neighbors[direction]);
           let lettersFound = 1;
           let matching = true;
 
@@ -70,7 +69,7 @@ function findInIndexedMatrix(word, indexedMatrix) {
               lettersFound++;
               
             }
-            if (lettersFound < wordArray.length) pointingItem = pointingItem.Directions[direction];
+            if (lettersFound < wordArray.length) pointingItem = pointingItem.Neighbors[direction];
           }
 
           if (matching && lettersFound === wordArray.length) {
@@ -86,6 +85,32 @@ function findInIndexedMatrix(word, indexedMatrix) {
 
 function SetPropertyIfMatrixItemIfAvailable(indexedMatrix, row, col, prop, value) {
   if (indexedMatrix[row] !== undefined && indexedMatrix[row][col] !== undefined) {
-    indexedMatrix[row][col].Directions[prop] = value;
+    indexedMatrix[row][col].RegisterAsNeighbor(prop, value);
   }
+}
+
+class Character {
+  constructor(character) {
+    this.Character = character.toLowerCase();
+    this.RowIndex = undefined;
+    this.ColumnIndex = undefined;
+    this.Neighbors = {};
+
+    return this;
+  }
+
+  atRow(rowIndex) {
+    this.RowIndex = rowIndex;
+    return this;
+  }
+
+  atColumn(columnIndex) {
+    this.ColumnIndex = columnIndex;
+    return this;
+  }
+
+  RegisterAsNeighbor(direction, neighbor) {
+    this.Neighbors[direction] = neighbor;
+  }
+
 }
