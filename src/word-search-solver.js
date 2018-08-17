@@ -5,23 +5,8 @@ const Direction = require('./direction');
 
 module.exports = function(letterMatrix, wordList) {
   const indexedMatrix = BuildMap(letterMatrix);
-  return wordList.map(word => FindWord(word, indexedMatrix));
+  return wordList.map(word => FindWordInIndexedMatrix(word, indexedMatrix));
 };
-
-function FindWord(word, indexedMatrix) {
-  const location = findInIndexedMatrix(word, indexedMatrix);
-    const wordResult = {
-      word: word,
-      found: false
-    }
-
-    if( location[0][0] + location[0][1] + location[1][0] + location[1][1] > 0 ) {
-      wordResult.found = true;
-      wordResult.firstLetter = location[0];
-      wordResult.lastLetter = location[1];
-    }
-    return wordResult;
-}
 
 function BuildMap(matrix) {
   var indexedMatrix = matrix.map((row, rowIndex) => 
@@ -42,7 +27,7 @@ function BuildMap(matrix) {
   return indexedMatrix;
 }
 
-function findInIndexedMatrix(word, indexedMatrix) {
+function FindWordInIndexedMatrix(word, indexedMatrix) {
   const wordClean = word.toLowerCase().trim();
 
   for(let rowIndex = 0; rowIndex < indexedMatrix.length; rowIndex++) {
@@ -52,13 +37,29 @@ function findInIndexedMatrix(word, indexedMatrix) {
       for(let directionIndex = 0; directionIndex < Directions.length; directionIndex ++) {
         const wordFoundResult = item.HasWord(wordClean, Directions[directionIndex].Direction);
         if (wordFoundResult.Found) {
-          return [[item.RowIndex, item.ColumnIndex], [wordFoundResult.EndRowIndex, wordFoundResult.EndColumnIndex]]
+          return CreateFoundResult(word, [item.RowIndex, item.ColumnIndex], [wordFoundResult.EndRowIndex, wordFoundResult.EndColumnIndex]);
         }
       }
     }
   }
 
-  return [[0,0],[0,0]];
+  return CreateNotFoundResult(word);
+}
+
+function CreateFoundResult(word, firstLetterLocation, lastLetterLocation) {
+  return {
+    word: word,
+    found: true,
+    firstLetter: firstLetterLocation,
+    lastLetter: lastLetterLocation,
+  }
+}
+
+function CreateNotFoundResult(word) {
+  return {
+    word: word,
+    found: false,
+  }
 }
 
 function SetPropertyIfMatrixItemIfAvailable(indexedMatrix, row, col, prop, value) {
