@@ -1,5 +1,8 @@
 'use strict';
 
+const Character = require('./character');
+const Direction = require('./direction');
+
 module.exports = function(letterMatrix, wordList) {
   const result = [];
   const indexedMatrix = BuildMap(letterMatrix);
@@ -64,84 +67,6 @@ function findInIndexedMatrix(word, indexedMatrix) {
 function SetPropertyIfMatrixItemIfAvailable(indexedMatrix, row, col, prop, value) {
   if (indexedMatrix[row] !== undefined && indexedMatrix[row][col] !== undefined) {
     indexedMatrix[row][col].RegisterAsNeighbor(prop, value);
-  }
-}
-
-class Character {
-  constructor(character) {
-    this.Character = character.toLowerCase();
-    this.RowIndex = undefined;
-    this.ColumnIndex = undefined;
-    this.Neighbors = {};
-
-    return this;
-  }
-
-  atRow(rowIndex) {
-    this.RowIndex = rowIndex;
-    return this;
-  }
-
-  atColumn(columnIndex) {
-    this.ColumnIndex = columnIndex;
-    return this;
-  }
-
-  RegisterAsNeighbor(direction, neighbor) {
-    this.Neighbors[direction] = neighbor;
-  }
-
-  HasWord(word, direction) {
-    if (word.length === 1 && word.charAt(0) === this.Character) {
-      return {
-        Found: true,
-        EndRowIndex: this.RowIndex,
-        EndColumnIndex: this.ColumnIndex
-      }
-    }
-
-    if(this.Character === word.charAt(0) && this.Neighbors[direction]) {
-      return this.Neighbors[direction].HasWord(word.substr(1), direction);
-    }
-
-    return { Found: false }
-  }
-}
-
-class Direction {
-  constructor(direction) {
-    this.Direction = direction;
-    this.Horizontal = 0;
-    this.Vertical = 0;
-    
-    return this;
-  }
-
-  MoveLeft() {
-    this.Horizontal--;
-    return this;
-  }
-
-  MoveRight() {
-    this.Horizontal++;
-    return this;
-  }
-
-  MoveUp() {
-    this.Vertical++;
-    return this;
-  }
-
-  MoveDown() {
-    this.Vertical--;
-    return this;
-  }
-
-  GetNeighborPosition(rowIndex, columnIndex) {
-    return {
-      RowIndex: rowIndex + (this.Horizontal * -1),
-      ColumnIndex: columnIndex + (this.Vertical * -1),
-    }
   }
 }
 

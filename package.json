@@ -4,8 +4,8 @@
   "description": "Utility to solve word search puzzles",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test.js",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/*"
+    "test": "mocha test/*.test.js",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/*.test.js"
   },
   "repository": {
     "type": "git",
