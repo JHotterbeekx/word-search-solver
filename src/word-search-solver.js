@@ -4,13 +4,14 @@ const Character = require('./character');
 const Direction = require('./direction');
 
 module.exports = function(letterMatrix, wordList) {
-  const result = [];
   const indexedMatrix = BuildMap(letterMatrix);
+  return wordList.map(word => FindWord(word, indexedMatrix));
+};
 
-  for(var i = 0; i < wordList.length; i++) {
-    const location = findInIndexedMatrix(wordList[i], indexedMatrix);
+function FindWord(word, indexedMatrix) {
+  const location = findInIndexedMatrix(word, indexedMatrix);
     const wordResult = {
-      word: wordList[i],
+      word: word,
       found: false
     }
 
@@ -19,10 +20,8 @@ module.exports = function(letterMatrix, wordList) {
       wordResult.firstLetter = location[0];
       wordResult.lastLetter = location[1];
     }
-    result.push(wordResult);
-  }
-  return result;
-};
+    return wordResult;
+}
 
 function BuildMap(matrix) {
   var indexedMatrix = matrix.map((row, rowIndex) => 
@@ -42,8 +41,6 @@ function BuildMap(matrix) {
   
   return indexedMatrix;
 }
-
-
 
 function findInIndexedMatrix(word, indexedMatrix) {
   const wordClean = word.toLowerCase().trim();
