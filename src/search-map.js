@@ -30,7 +30,7 @@ module.exports = class SearchMap {
     this.IndexedMatrix.forEach((row, rowIndex) => {
       row.forEach((item, colIndex) => {
         Directions.forEach(direction => {
-          const neighbor = direction.GetNeighborPosition(rowIndex, colIndex);
+          const neighbor = direction.GetMyPositionFromNeighborsPerspective(rowIndex, colIndex);
           this.SetPropertyIfMatrixItemIfAvailable(neighbor.RowIndex, neighbor.ColumnIndex, direction.Direction, item);
         })
       })

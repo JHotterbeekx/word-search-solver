@@ -27,10 +27,10 @@ module.exports = class Direction {
     return this;
   }
 
-  GetNeighborPosition(rowIndex, columnIndex) {
+  GetMyPositionFromNeighborsPerspective(rowIndex, columnIndex) {
     return {
-      RowIndex: rowIndex + (this.Horizontal * -1),
-      ColumnIndex: columnIndex + (this.Vertical * -1),
+      RowIndex: rowIndex + (this.Vertical * -1),
+      ColumnIndex: columnIndex + (this.Horizontal * -1),
     }
   }
 }
