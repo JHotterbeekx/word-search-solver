@@ -31,7 +31,7 @@ module.exports = class SearchMap {
       row.forEach((item, colIndex) => {
         Directions.forEach(direction => {
           const neighbor = direction.GetMyPositionFromNeighborsPerspective(rowIndex, colIndex);
-          this.SetPropertyIfMatrixItemIfAvailable(neighbor.RowIndex, neighbor.ColumnIndex, direction.Direction, item);
+          this.SetPropertyInMatrixItemIfAvailable(neighbor.RowIndex, neighbor.ColumnIndex, direction.Direction, item);
         })
       })
     });
@@ -56,7 +56,7 @@ module.exports = class SearchMap {
     return WordResult.CreateNotFound(word);
   }
 
-  SetPropertyIfMatrixItemIfAvailable(row, col, prop, value) {
+  SetPropertyInMatrixItemIfAvailable(row, col, prop, value) {
     if (this.IndexedMatrix[row] !== undefined && this.IndexedMatrix[row][col] !== undefined) {
       this.IndexedMatrix[row][col].RegisterAsNeighbor(prop, value);
     }
