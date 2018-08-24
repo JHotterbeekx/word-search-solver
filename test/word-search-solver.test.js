@@ -1,15 +1,6 @@
 var expect = require('chai').expect;
 var wordSearchSolver = require('../index.js');
 
-const matrix = [
-        'abcdef',
-        'ghijkl',
-        'mnopqr',
-        'stuvwx',
-        'yzabcd',
-        'efghij',
-];
-
 describe('Test matrix', function() {
   describe('Direction: right', function() {
     it('Should find the word, when its not touching the edges of the matrix', function() {
