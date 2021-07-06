@@ -22,7 +22,7 @@ module.exports = class SearchMap {
 
   BuildMap(matrix) {
     this.IndexedMatrix = matrix.map((row, rowIndex) => 
-      row.split('').map((col, colIndex) => 
+      String(row).split('').map((col, colIndex) => 
         new Character(col).atRow(rowIndex).atColumn(colIndex)
       )
     );
