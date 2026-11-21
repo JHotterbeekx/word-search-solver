@@ -81,8 +81,5 @@ word-search-solver is freely distributable under the terms of the [MIT license](
 [npm-version-image]: https://img.shields.io/npm/v/word-search-solver.svg?style=flat
 [npm-downloads-image]: http://img.shields.io/npm/dm/word-search-solver.svg?style=flat
 
-[travis-url]: https://travis-ci.org/JHotterbeekx/word-search-solver
-[travis-image]: http://img.shields.io/travis/moment/moment/develop.svg?style=flat
-
 [coveralls-url]: https://coveralls.io/github/JHotterbeekx/word-search-solver
 [coveralls-image]: https://coveralls.io/repos/github/JHotterbeekx/word-search-solver/badge.svg?branch=master
