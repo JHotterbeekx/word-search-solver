@@ -16,7 +16,8 @@ before_install:
 before_script:
   - greenkeeper-lockfile-update
 
-# Send coverage data to Coveralls
-after_script: 
-  - "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+after_script:
   - greenkeeper-lockfile-upload
+
+after_success:
+  - curl --fail --silent --show-error --location https://coveralls.io/coveralls-linux.tar.gz --output /tmp/coveralls-linux.tar.gz && tar -xzf /tmp/coveralls-linux.tar.gz -C /tmp && /tmp/coveralls report coverage/lcov.info
